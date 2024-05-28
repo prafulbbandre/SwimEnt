@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #qrCodeInput {
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        #qrCodeContainer {
+            display: inline-block;
+            perspective: 1000px;
+        }
+
+        #qrcode {
+            width: 200px;
+            height: 200px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #downloadButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Live QR Code Generator</h1>
+    <input type="text" id="qrCodeInput" placeholder="Enter text...">
+    <div id="qrCodeContainer">
+        <canvas id="qrcode"></canvas>
+    </div>
+    <button id="downloadButton" onclick="downloadQRCodeAsPDF()">Download as PDF</button>
+
+    <script>
+        function generateQRCode() {
+            const inputText = document.getElementById('qrCodeInput').value.trim() || 'Nothing';
+            const canvas = document.getElementById('qrcode');
+
+            QRCode.toCanvas(canvas, inputText, function (error) {
+                if (error) console.error(error);
+                console.log('QR code generated successfully!');
+            });
+        }
+
+
+        function downloadQRCodeAsPDF() {
+            const { jsPDF } = window.jspdf;
+            const inputText = document.getElementById('qrCodeInput').value.trim();
+            const canvas = document.getElementById('qrcode');
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            pdf.addImage(imgData, 'PNG', 10, 10, 180, 180);
+
+            const textWidth = pdf.getTextWidth(inputText);
+            const pageWidth = pdf.internal.pageSize.width;
+            const x = (pageWidth - textWidth) / 2;
+            pdf.text(inputText, x, 200);
+            pdf.text(inputText, x, 200);
+            pdf.save('qrcode.pdf');
+        }
+
+        document.getElementById('qrCodeInput').addEventListener('input', generateQRCode);
+        window.addEventListener('load', generateQRCode);
+    </script>
+</body>
+
+</html>
