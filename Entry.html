@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Swimming Pool Entries</title>
+</head>
+
+<body>
+    <form id="entryForm">
+        <h1>Current Date and Time</h1>
+        <div id="dateTime"></div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br><br>
+        <button type="button" onclick="addEntry()">Add Entry</button>
+    </form>
+    <button type="button" onclick="saveAsExcel()">Save as Excel</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="index.js"></script>
+
+    <button type="button" onclick="generateDailyPDF()">Generate Daily Entry Sheet</button>
+    <button type="button" onclick="savePDFNow()">Save entry data Now</button>
+
+</body>
+
+</html>
