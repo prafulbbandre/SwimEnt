@@ -1,3 +1,1 @@
-# SwimEnt
-
-Basics Entry Management for swimmming pools.
+Live Qr Code Generator with input from keyboard.
