@@ -57,11 +57,19 @@
             const inputText = document.getElementById('qrCodeInput').value.trim() || 'Nothing';
             const canvas = document.getElementById('qrcode');
 
-            QRCode.toCanvas(canvas, inputText, function (error) {
-                if (error) console.error(error);
-                console.log('QR code generated successfully!');
-            });
+           QRCode.toCanvas(canvas, inputText, { 
+        width: 400, // Width of the QR code
+        height: 400, // Height of the QR code
+        margin: 2,   // Margin around the QR code
+        color: {
+          dark: '#000000', // Dark color for QR code
+          light: '#ffffff' // Light color (background)
         }
+      }, function (error) {
+        if (error) console.error(error);
+        console.log('QR Code generated!');
+      });
+    }
 
 
         function downloadQRCodeAsPDF() {
